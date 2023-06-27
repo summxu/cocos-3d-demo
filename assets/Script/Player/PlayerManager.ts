@@ -4,19 +4,21 @@
  * @LastEditTime: 2023-06-27 18:08:41
  * @Description: 
  */
-import { _decorator, Component, EventKeyboard, Input, input, KeyCode, RigidBody, Vec3 } from 'cc';
+import { Component, EventKeyboard, Input, input, KeyCode, RigidBody, Vec3, _decorator } from 'cc';
 import { LANE_ENUM } from '../../Enum';
+import { speedToForce } from '../Utils';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerManager')
 export class PlayerManager extends Component {
 
-  isForward: Boolean = false
-  forwardSpeed: number = 1000 // 前进速度
-  translateSpeed: number = 5 // 平移速度
+  speed: number = 100 // km/h
   lane: LANE_ENUM = LANE_ENUM.RIGHT
-  tempPos: Vec3 = new Vec3()
-  tempX: number = -0.5 // 记录左右移动的x
+  isForward: Boolean = false
+
+  private tempPos: Vec3 = new Vec3()
+  private translateSpeed: number = 5 // 平移速度
+  private tempX: number = -0.5 // 记录左右移动的x
 
   start() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -35,7 +37,10 @@ export class PlayerManager extends Component {
   onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.KEY_W:
-        this.isForward = true
+        // this.isForward = true
+        const rigidBody = this.node.getComponent(RigidBody)
+        rigidBody.applyForce(new Vec3(0, 0, speedToForce(this.speed)))
+
         break;
       case KeyCode.KEY_D:
         this.lane = LANE_ENUM.RIGHT
@@ -60,7 +65,7 @@ export class PlayerManager extends Component {
     if (this.isForward) {
       // 向前移动
       const rigidBody = this.node.getComponent(RigidBody)
-      rigidBody.applyForce(new Vec3(0, 0, this.forwardSpeed * deltaTime))
+      rigidBody.applyForce(new Vec3(0, 0, speedToForce(this.speed) * deltaTime))
     }
 
     // 左右平移
