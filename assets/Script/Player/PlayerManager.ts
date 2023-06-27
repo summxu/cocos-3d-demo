@@ -1,7 +1,7 @@
 /*
  * @Author: Chenxu
  * @Date: 2023-06-27 10:19:51
- * @LastEditTime: 2023-06-27 18:07:24
+ * @LastEditTime: 2023-06-27 18:08:41
  * @Description: 
  */
 import { _decorator, Component, EventKeyboard, Input, input, KeyCode, RigidBody, Vec3 } from 'cc';
@@ -16,7 +16,7 @@ export class PlayerManager extends Component {
   translateSpeed: number = 5 // 平移速度
   lane: LANE_ENUM = LANE_ENUM.RIGHT
   tempPos: Vec3 = new Vec3()
-  tempX: number = 0// 记录左右移动的x
+  tempX: number = -0.5 // 记录左右移动的x
 
   start() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
