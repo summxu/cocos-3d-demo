@@ -1,7 +1,7 @@
 /*
  * @Author: Chenxu
  * @Date: 2023-06-27 10:19:51
- * @LastEditTime: 2023-06-27 17:35:06
+ * @LastEditTime: 2023-06-27 18:07:24
  * @Description: 
  */
 import { _decorator, Component, EventKeyboard, Input, input, KeyCode, RigidBody, Vec3 } from 'cc';
@@ -13,7 +13,7 @@ export class PlayerManager extends Component {
 
   isForward: Boolean = false
   forwardSpeed: number = 1000 // 前进速度
-  translateSpeed: number = 2.5 // 平移速度
+  translateSpeed: number = 5 // 平移速度
   lane: LANE_ENUM = LANE_ENUM.RIGHT
   tempPos: Vec3 = new Vec3()
   tempX: number = 0// 记录左右移动的x
