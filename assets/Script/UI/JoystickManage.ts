@@ -1,7 +1,7 @@
 /*
  * @Author: Chenxu
  * @Date: 2023-06-28 16:15:04
- * @LastEditTime: 2023-06-28 20:14:10
+ * @LastEditTime: 2023-06-28 22:18:04
  * @Description: 
  */
 import { _decorator, CCFloat, Component, Node, Slider, Vec3 } from 'cc';
@@ -37,4 +37,5 @@ export class JoystickManage extends Component {
     }
   }
 
+  // 
 }
