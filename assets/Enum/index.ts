@@ -2,3 +2,10 @@ export enum LANE_ENUM {
   RIGHT = "RIGHT",
   LEFT = "LEFT"
 }
+
+export enum JOYSTICK_EVENT_ENUM {
+  FORWARD = "FORWARD",
+  BRAKE = "BRAKE",
+  UPSHIFT = "UPSHIFT",
+  DOWNSHIFT = "DOWNSHIFT"
+}
