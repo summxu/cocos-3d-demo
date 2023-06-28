@@ -1,18 +1,17 @@
 /*
  * @Author: Chenxu
  * @Date: 2023-06-27 10:19:51
- * @LastEditTime: 2023-06-27 18:08:41
+ * @LastEditTime: 2023-06-28 10:33:29
  * @Description: 
  */
-import { Component, EventKeyboard, Input, input, KeyCode, RigidBody, Vec3, _decorator } from 'cc';
+import { Component, EventKeyboard, Input, KeyCode, RigidBody, Vec3, _decorator, input } from 'cc';
 import { LANE_ENUM } from '../../Enum';
-import { speedToForce } from '../Utils';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerManager')
 export class PlayerManager extends Component {
 
-  speed: number = 100 // km/h
+  forceSpeed: number = 1000 // 施加的力
   lane: LANE_ENUM = LANE_ENUM.RIGHT
   isForward: Boolean = false
 
@@ -37,10 +36,7 @@ export class PlayerManager extends Component {
   onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.KEY_W:
-        // this.isForward = true
-        const rigidBody = this.node.getComponent(RigidBody)
-        rigidBody.applyForce(new Vec3(0, 0, speedToForce(this.speed)))
-
+        this.isForward = true
         break;
       case KeyCode.KEY_D:
         this.lane = LANE_ENUM.RIGHT
@@ -65,7 +61,7 @@ export class PlayerManager extends Component {
     if (this.isForward) {
       // 向前移动
       const rigidBody = this.node.getComponent(RigidBody)
-      rigidBody.applyForce(new Vec3(0, 0, speedToForce(this.speed) * deltaTime))
+      rigidBody.applyForce(new Vec3(0, 0, this.forceSpeed * deltaTime))
     }
 
     // 左右平移
