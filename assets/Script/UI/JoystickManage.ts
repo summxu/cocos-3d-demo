@@ -1,7 +1,7 @@
 /*
  * @Author: Chenxu
  * @Date: 2023-06-28 16:15:04
- * @LastEditTime: 2023-06-28 17:22:53
+ * @LastEditTime: 2023-06-28 20:14:10
  * @Description: 
  */
 import { _decorator, CCFloat, Component, Node, Slider, Vec3 } from 'cc';
@@ -27,12 +27,12 @@ export class JoystickManage extends Component {
       // 刹车转换，0到默认进度之间->转换成 -0.5-0 之间
       // 线性映射公式 (原数值 - 0) / (sliderDefaultProgress - 0) * (0 - (-0.5)) + (-0.5)
       const tempNum = (progress - 0) / (this.sliderDefaultProgress - 0) * (0 - (-0.5)) + (-0.5)
-      DataManager.Instance.gasPedal = Number(tempNum.toFixed(2))
+      DataManager.Instance.gasPedal = Number(tempNum.toFixed(3))
       EventManage.Instance.emit(JOYSTICK_EVENT_ENUM.BRAKE)
     } else if (progress > this.sliderDefaultProgress) {
       // 油门转换，默认进度到1之间->转换成 0-1 之间
       const tempNum = (progress - this.sliderDefaultProgress) / (1 - this.sliderDefaultProgress)
-      DataManager.Instance.gasPedal = Number(tempNum.toFixed(2))
+      DataManager.Instance.gasPedal = Number(tempNum.toFixed(3))
       EventManage.Instance.emit(JOYSTICK_EVENT_ENUM.FORWARD)
     }
   }
