@@ -6,8 +6,8 @@
  */
 import { Component, EventKeyboard, Input, KeyCode, RigidBody, Vec3, _decorator, input } from 'cc';
 import { JOYSTICK_EVENT_ENUM, LANE_ENUM } from '../../Enum';
-import EventManage from '../../RunTime/EventManage';
-import DataManager from '../../RunTime/DataManage';
+import EventManager from '../../RunTime/EventManager';
+import DataManagerr from '../../RunTime/DataManager';
 const { ccclass, property } = _decorator;
 
 // 固定线性阻尼系数，最小阻尼力
@@ -29,14 +29,14 @@ export class PlayerManager extends Component {
 
   start() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
-    EventManage.Instance.on(JOYSTICK_EVENT_ENUM.FORWARD, this.forwardHandle, this)
-    EventManage.Instance.on(JOYSTICK_EVENT_ENUM.BRAKE, this.brakeHandle, this)
+    EventManager.Instance.on(JOYSTICK_EVENT_ENUM.FORWARD, this.forwardHandle, this)
+    EventManager.Instance.on(JOYSTICK_EVENT_ENUM.BRAKE, this.brakeHandle, this)
   }
 
   onDestroy() {
     input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
-    EventManage.Instance.off(JOYSTICK_EVENT_ENUM.FORWARD, this.forwardHandle)
-    EventManage.Instance.off(JOYSTICK_EVENT_ENUM.BRAKE, this.brakeHandle)
+    EventManager.Instance.off(JOYSTICK_EVENT_ENUM.FORWARD, this.forwardHandle)
+    EventManager.Instance.off(JOYSTICK_EVENT_ENUM.BRAKE, this.brakeHandle)
   }
 
   update(deltaTime: number) {
@@ -57,20 +57,20 @@ export class PlayerManager extends Component {
   // 前进处理函数
   forwardHandle() {
     this.isBrake = false
-    const gasPedal = DataManager.Instance.gasPedal
+    const gasPedal = DataManagerr.Instance.gasPedal
     gasPedal > 0 ? this.isForward = true : this.isForward = false
   }
 
   // 刹车处理函数
   brakeHandle() {
     this.isForward = false
-    const gasPedal = DataManager.Instance.gasPedal
+    const gasPedal = DataManagerr.Instance.gasPedal
     gasPedal < 0 ? this.isBrake = true : this.isBrake = false
   }
 
   move(deltaTime: number) {
     this.node.getPosition(this.tempPos)
-    const gasPedal = DataManager.Instance.gasPedal
+    const gasPedal = DataManagerr.Instance.gasPedal
     const rigidBody = this.node.getComponent(RigidBody)
     rigidBody.getLinearVelocity(this.tempVelocity)
 

@@ -16,10 +16,10 @@ interface IItem {
   ctx: unknown;
 }
 
-export default class EventManage extends Singleton {
+export default class EventManager extends Singleton {
   static get Instance() {
     // 重写方法，为了传入泛型
-    return super.GetInstance<EventManage>();
+    return super.GetInstance<EventManager>();
   }
 
   private eventDic: Map<string, Array<IItem>> = new Map();
